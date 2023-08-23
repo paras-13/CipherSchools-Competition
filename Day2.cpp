@@ -30,6 +30,6 @@ int main()
     cout << "Enter array elements";
     for(int i=0; i<n; i++)
     cin >> arr[i];
-    cout << findsum(arr, n);
+    cout << "Output: " <<findsum(arr, n);
     
 }
