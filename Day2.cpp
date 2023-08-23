@@ -1,3 +1,4 @@
+// Day2 - Problem
 #include<iostream>
 using namespace std;
 int findsum(int* arr, int n)
