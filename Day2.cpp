@@ -1,35 +1,73 @@
-// Day2 - Problem
+// Day 2 Problem
 #include<iostream>
 using namespace std;
-int findsum(int* arr, int n)
+
+class Node
 {
-    int flag = 0;
-    for(int i=0; i<n; i++)
+    public:
+    int data;
+    Node* next;
+    Node(int x)
     {
-        for(int k=n-1; k>i+1; k--)
-        {
-            for(int j=i+1; j<k; j++)
-            {
-                if(arr[i] + arr[j] + arr[k] == 0)
-                {
-                    flag = 1;
-                    break;
-                }
-            }
-        }
+        data = x;
+        next = NULL;
     }
-    if(flag) return 1;
-    else return 0;
+};
+
+void evenInsert(Node* &head2, int val)
+{
+    Node* temp = head2;
+    Node* newnode = new Node(val);
+
+    newnode->next = NULL;
+    if(head2 == NULL) {head2 = newnode; return;}
+
+    while(temp->next != NULL) temp=temp->next;
+    temp->next = newnode;
+    return;
+}
+void oddInsert(Node* &head1, Node* &tail, int val)
+{
+    Node* temp = head1;
+    Node *newnode = new Node(val);
+    newnode->next = NULL;
+
+    if(head1 == NULL) {head1 = newnode; return;}
+    while(temp->next != NULL) 
+    temp = temp->next;
+    temp->next = newnode;
+
+    Node* last = head1;
+    while(last->next!=NULL)
+    last=last->next;
+    tail = last;
+    return;
+}
+void print(Node* head1)
+{
+    Node *temp = head1;
+    while(temp!=NULL)
+    {
+        cout << temp->data<<" ";
+        temp=temp->next;
+    }
 }
 int main()
 {
     int n;
-    cout <<"Enter the number of elements in array: ";
+    cout << "Enter number of elements: ";
     cin >> n;
-    int arr[n];
-    cout << "Enter array elements";
-    for(int i=0; i<n; i++)
-    cin >> arr[i];
-    cout << "Output: " <<findsum(arr, n);
-    
+    int val;
+    Node* head1 = NULL;
+    Node* head2 = NULL;
+    Node* tail = NULL;
+    cout << "Enter elements: ";
+    for(int i=1; i<=n; i++)
+    {
+        cin >> val;
+        if(i%2==0) evenInsert(head2, val);
+        else oddInsert(head1, tail, val);
+    }
+    tail->next = head2;
+    print(head1);
 }
