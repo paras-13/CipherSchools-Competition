@@ -15,21 +15,22 @@ public:
     }
 };
 
-void insertNode(Node* &head, int val)
+Node* insertNode(Node* &head, int val)
 {
     Node* temp = head;
     Node* newnode = new Node(val);
     newnode->next = NULL;
     if (head == NULL) {
         head = newnode;
-        return;
+        return head;
     }
     while (temp->next != NULL)
         temp = temp->next;
     temp->next = newnode;
+    return head;
 }
 
-void createLinkedList(Node* &head)
+Node* createLinkedList(Node* &head)
 {
     cout << "Enter number of elements: ";
     int n;
@@ -41,6 +42,7 @@ void createLinkedList(Node* &head)
         cin >> val;
         insertNode(head, val);
     }
+    return head;
 }
 
 void mergeAndSort(Node* &main_head, Node* new_head)
@@ -99,14 +101,15 @@ int main()
 
     cout << "Number of linked lists: ";
     cin >> size;
-
+    Node* arr[size];
     for (int i = 0; i < size; i++)
     {
         Node* head = NULL;
         cout << endl << "Linked list " << i + 1 << endl;
-        createLinkedList(head);
-        mergeAndSort(main_head, head);
+        arr[i] = createLinkedList(head);
     }
+    for(int j=0; j<size; j++)
+    mergeAndSort(main_head, arr[j]);
     print(main_head);
     return 0;
 }
