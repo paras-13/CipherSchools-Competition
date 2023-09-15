@@ -109,8 +109,11 @@ int main()
     }
     cout << "Enter key: ";
     int key; cin >> key;
-    traverseNode(head, key, n);
-    print(head);
+    if(key <= n)
+    {
+    traverseNode(head, key, n); print(head);
+    }
+    else print(head);
     return 0;
 }
 
