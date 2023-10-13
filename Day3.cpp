@@ -1,6 +1,5 @@
 // Day 3
 #include <iostream>
-#include <deque>
 using namespace std;
 class Node
 {
