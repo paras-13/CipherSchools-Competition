@@ -23,33 +23,34 @@ void insertNode(Node* &head,int val)
     while(temp->next!=NULL) temp=temp->next;
     temp->next = newnode;
 }
-
-void reorderList(Node* head)
+Node* middleNode(Node* head)
 {
+    Node* ptr1 = head; Node* ptr2 = head;
+    while (ptr1 != nullptr && ptr1->next != nullptr) {
+        ptr2 = ptr2->next; ptr1 = ptr1->next->next;
+    }
+    return ptr2;
+}
+void reorderList(Node* head) {
     if (head == NULL || head->next == NULL) return;
-
-    Node* temp = head;
-    Node* t_head = head;
-    deque<Node*> dq;
-
-    while (temp != NULL)
+    Node* prev = NULL;
+    Node* temp = middleNode(head);
+    Node* next;
+    while (temp != NULL) 
     {
-        dq.push_back(temp);
-        temp = temp->next;
+        next = temp->next; temp->next = prev;
+        prev = temp; temp = next;
     }
-
-    while (!dq.empty())
+    Node* front = head; Node* back = prev;
+    while (back->next != NULL)
     {
-        t_head->next = dq.front();
-        t_head = dq.front();
-        dq.pop_front();
-        if (!dq.empty()) {
-            t_head->next = dq.back();
-            t_head = dq.back();
-            dq.pop_back();
-        }
+        next = front->next;
+        front->next = back;
+        front = next;
+        next = back->next;
+        back->next = front;
+        back = next;
     }
-    t_head->next = NULL;
 }
 
 void printLL(Node* head)
