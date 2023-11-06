@@ -66,7 +66,7 @@ int main() {
     while (t--) {
         Node* head = NULL;
         int n, val;
-        cout << "Enter number of elements in LL: ";
+        cout << "LL size: ";
         cin >> n;
         cout << "LL -->: ";
         for (int i = 0; i < n; i++) {
