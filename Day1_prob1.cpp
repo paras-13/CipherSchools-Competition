@@ -105,18 +105,18 @@ int main()
 {
     Node* head = NULL;
     int n, m, val;
-    cout << "Enter number of elements to enter: "; cin >> n;
+    cout << "Size of LL: "; cin >> n;
     int loose = n;
-    cout << "Enter elements: ";
+    cout << "LL-> ";
     while (loose--)
     {
         cin >> val;
         insertNode(head, val);
     }
-    cout << "Enter number of elements to enter in Array: ";
+    cout << "Size of Array: ";
     cin >> m;
     int arr[m];
-    cout << "Enter elements in array: ";
+    cout << "Array elements-> ";
     for(int i=0; i<m; i++) cin >> arr[i];
     traverseNode(head, arr, n);
     print(head);
