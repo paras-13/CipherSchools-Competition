@@ -83,7 +83,6 @@ void traverseNode(Node* &head, int *arr, int n)
             t = temp->next;
             temp->next = NULL;
             reverseNode(head, t, ch , main, tail, temp);
-            n-=arr[ptr]; ptr++;
             count = 0;
         }
         else temp = temp->next;
