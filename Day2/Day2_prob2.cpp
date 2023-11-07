@@ -3,20 +3,15 @@
 using namespace std;
 
 int HistoArea(int* arr, int n) {
-        int prev, next;
-        int area=0;
+        int prev, next, area=0;
         for(int i=0;i<n;i++)
         {
             int count=1; prev=i-1; next=i+1;
-            while(prev>=0 && arr[i]<=arr[prev]) 
-            { 
-                count++;
-                prev--;
+            while(prev>=0 && arr[i]<=arr[prev]) { 
+                count++; prev--;
             }
-            while(next<n && arr[i]<=arr[next])
-            {
-                count++;
-                next++;
+            while(next<n && arr[i]<=arr[next]) {
+                count++; next++;
             }
             int t_area=arr[i]*count;
             area=max(area, t_area);
