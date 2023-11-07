@@ -30,6 +30,6 @@ int main()
         cin >> n;
         int arr[n];
         for(int i=0; i<n; i++) cin >> arr[i];
-        cout << HistoArea(arr, n) << endl;
+        cout << "Result --> " << HistoArea(arr, n) << endl << endl;
     }
 }
