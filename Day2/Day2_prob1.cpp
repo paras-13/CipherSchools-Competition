@@ -1,71 +1,77 @@
-// Day2 Problem1
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-class Stack
-{
-    private:
-    int MAX_SIZE;
-    int *arr;
-    int top = -1;
 
-    public:
-    void setSize(int x)
+class Stack {
+private:
+    int *arr;      
+    int *top;
+    int *next;     
+    int max_size, Nstack, free;  
+
+public:
+    Stack(int n, int s)
     {
-        MAX_SIZE = x;
-        arr = new int[MAX_SIZE];
-    }
+        max_size = n;
+        Nstack = s;
+        arr = new int[max_size];
+        top = new int[Nstack];
+        next = new int[max_size];
 
-    bool push(int x);
-    int pop();
+        for (int i = 0; i < Nstack; i++) top[i] = -1;
+        free = 0;
+        for (int i = 0; i < max_size - 1; i++)
+            next[i] = i + 1;
+        next[max_size - 1] = -1;
+    }
+    bool push(int stackNum, int value);
+    int pop(int stackNum);
 };
 
-bool Stack :: push(int element)
-{
-    if(top == MAX_SIZE-1) return false;
-    else
-    {
-        top++;
-        arr[top] = element;
-        return true;
-    }
+bool Stack::push(int stackNum, int value) {
+    if (free == -1) return false;
+    int temp = free;
+    free = next[temp];
+    next[temp] = top[stackNum];
+    top[stackNum] = temp;
+    arr[temp] = value;
+    return true;
 }
 
-int Stack :: pop()
+int Stack::pop(int stackNum)
 {
-    int temp;
-    if(top == -1) return -1;
-    else
-    {
-        temp = arr[top];
-        top--;
-        return temp;
-    }
+    if (top[stackNum] == -1) return -1;
+    int temp = top[stackNum];
+    top[stackNum] = next[temp];
+    next[temp] = free;
+    free =temp;
+    return arr[temp];
 }
 
 int main()
 {
     int n, s, q;
-    int choice, ele, stack;
-    cout << "Number of stacks: "; cin >> n;
-    cout << "Size of array: "; cin >> s;
-    cout << "Number of queries: "; cin >> q;
-    Stack mystack[n];
-    for(int i=0; i<n; i++) mystack[i].setSize(s);
-    while(q--)
-    {   cout << "\nEnter query: ";
+    int choice, stackNum, element;
+    cin >> n >> s >> q;
+    Stack mystack(n, s);
+    cout << "Enter query: \n";
+    while (q--)
+    {
         cin >> choice;
-        if(choice == 1)
+        if (choice == 1)
         {
-            cin >> ele >> stack;
-            if(mystack[stack-1].push(ele)) cout << "True\n";
-            else cout << "False\n";
+            cin >> element >> stackNum;
+            if (mystack.push(stackNum, element))
+                cout << "True\n\n";
+            else
+                cout << "False\n\n";
         }
         else if (choice == 2)
         {
-            cin >> stack;
-            cout << mystack[stack-1].pop() << endl;
+            cin >> stackNum;
+            cout << mystack.pop(stackNum) << endl << endl;
         }
-        else cout << "Invalid choice\n";
+        else
+            cout << "Invalid choice\n";
     }
-
+    return 0;
 }
